@@ -76,14 +76,31 @@ services:
     container_name: auth-ms
     build: ./auth-ms
     restart: always
+    depends_on:
+      - user-db 
     # ports:
     #   - "${AUTH_MS_PORT}:${AUTH_MS_PORT}"
     command: npm run start:dev
     volumes:
       - ./auth-ms/src:/usr/src/app/src    
     environment:
-      - PORT=${AUTH_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222       
+      # - PORT=${AUTH_MS_PORT}
+      - NATS_SERVERS=nats://nats-server:4222
+
+  user-db:
+    container_name: user-db
+    image: mongo
+    restart: always
+    volumes:
+      - ./auth-ms/mongo_data:/data/db       
+    ports:
+      - "27017:27017"
+    # command: -p 5433      
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      
+
       
 
     
