@@ -40,3 +40,13 @@ Si se hace al revés, se perderán las referencias de los sub-módulos en el rep
 ## Example the command to create production images
 docker build -f dockerfile.prod -t client-gateway .
 
+## Example the command to create production images OK
+docker-compose -f docker-compose.prod.yml build
+
+
+#Prod
+
+1. Clone the repository
+2. Create a .env
+3. Execute the command `docker-compose -f docker-compose.prod.yml build`
+
