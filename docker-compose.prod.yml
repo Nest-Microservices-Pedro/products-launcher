@@ -9,7 +9,7 @@ services:
     build:
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: client-gateway-prod  
+    image: northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/client-gateway  
     ports:
       - "${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}"
     # volumes:
@@ -24,7 +24,7 @@ services:
     build:
       context: ./auth-ms
       dockerfile: dockerfile.prod
-    image: auth-ms-prod     
+    image: northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/auth-ms     
     environment:
       # - PORT=${AUTH_MS_PORT}
       - NATS_SERVERS=nats://nats-server:4222
@@ -38,7 +38,7 @@ services:
       dockerfile: dockerfile.prod
     # depends_on:
     #   - nats-server
-    image: product-ms-prod     
+    image: northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/product-ms     
     environment:
       - PORT=3001
       - NATS_SERVERS=nats://nats-server:4222
@@ -49,7 +49,7 @@ services:
     build:
       context: ./payments-ms
       dockerfile: dockerfile.prod
-    image: payment-ms-prod     
+    image: northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/payment-ms     
     ports:
     - "${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}" 
     environment:
@@ -67,105 +67,13 @@ services:
       dockerfile: dockerfile.prod
       args:
         - ORDERS_DATABASE_URL=${ORDERS_DATABASE_URL}
-    image: orders-ms-prod       
+    image: northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/orders-ms       
     environment:
       - NATS_SERVERS=nats://nats-server:4222
       - DATABASE_URL=${ORDERS_DATABASE_URL}
 
 
-   # orders-ms:
-  #   container_name: orders-ms
-  #   build: ./orders-ms
-  #   restart: always
-  #   # ports:
-  #   #   - "3002:3002"
-  #   depends_on:
-  #     - orders-db     
-  #   volumes:
-  #     - ./orders-ms/src:/usr/src/app/src
-  #   command: npm run start:dev
-  #   environment:
-  #     - PORT=3002
-  #     - NATS_SERVERS=nats://nats-server:4222
-  #     - DATABASE_URL=postgresql://postgres:postgres@orders-db:5432/ordersdb?schema=public   
-
-  # orders-db:
-  #   container_name: orders-db
-  #   image: postgres:16.2
-  #   restart: always
-  #   volumes:
-  #     - ./orders-ms/postgresql:/var/lib/postgresql/data       
-  #   ports:
-  #     - "5432:5432"
-  #   # command: -p 5433      
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: ordersdb
-      
-
  
-  # payment-ms:
-  #   container_name: payments-ms
-  #   build: ./payments-ms
-  #   restart: always
-  #   ports:
-  #   - "${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}"     
-  #   volumes:
-  #   - ./payments-ms/src:/usr/src/app/src
-  #   command: npm run start:dev
-  #   environment:
-  #     - PORT=${PAYMENTS_MS_PORT}
-  #     - NATS_SERVERS=nats://nats-server:4222
-  #     - STRIPE_SECRET=${STRIPE_SECRET}
-  #     - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
-  #     - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
-  #     - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
-
-  # orders-ms:
-  #   container_name: orders-ms
-  #   build: ./orders-ms
-  #   restart: always
-  #   # ports:
-  #   #   - "3002:3002"
-  #   depends_on:
-  #     - orders-db     
-  #   volumes:
-  #     - ./orders-ms/src:/usr/src/app/src
-  #   command: npm run start:dev
-  #   environment:
-  #     - PORT=3002
-  #     - NATS_SERVERS=nats://nats-server:4222
-  #     - DATABASE_URL=postgresql://postgres:postgres@orders-db:5432/ordersdb?schema=public
-  # orders-db:
-  #   container_name: orders-db
-  #   image: postgres:16.2
-  #   restart: always
-  #   volumes:
-  #     - ./orders-ms/postgresql:/var/lib/postgresql/data       
-  #   ports:
-  #     - "5432:5432"
-  #   # command: -p 5433      
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: ordersdb
-
-
-
-  # user-db:
-  #   container_name: user-db
-  #   image: mongo
-  #   restart: always
-  #   volumes:
-  #     - ./auth-ms/mongo_data:/data/db       
-  #   ports:
-  #     - "27017:27017"
-  #   # command: -p 5433      
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: admin
-  #     MONGO_INITDB_ROOT_PASSWORD: admin
-      
 
       
 

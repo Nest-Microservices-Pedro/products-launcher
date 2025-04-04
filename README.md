@@ -50,3 +50,15 @@ docker-compose -f docker-compose.prod.yml build
 2. Create a .env
 3. Execute the command `docker-compose -f docker-compose.prod.yml build`
 
+
+#Steps to configure the GCP:
+1. Create the repository in Container Register
+2. Upload the repository
+3. Configure the trigger in Cloud Build.  
+
+
+#Note
+1.- Build the image:
+Example: `docker build -f dockerfile.prod -t northamerica-northeast1-docker.pkg.dev/store-microservices-455715/imagen-regiter-ok/auth-ms`
+To push image to Docker in 
+To push image to Docker in this address `C:\Users\pedro\AppData\Local\Google\Cloud SDK`
